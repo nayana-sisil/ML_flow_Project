@@ -12,6 +12,6 @@ data/
 *.tar.gz
 
 mlflow.db
-mlruns/
+
 *.db
 models/*.pth

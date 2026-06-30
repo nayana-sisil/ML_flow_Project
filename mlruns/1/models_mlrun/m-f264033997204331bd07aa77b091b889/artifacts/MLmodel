@@ -1,0 +1,22 @@
+artifact_path: file:///C:/Users/Ewis/Documents/Learn_Technolgies_and_Tools/MLflow/mlflow-cifar10/mlruns/1/models/m-f264033997204331bd07aa77b091b889/artifacts
+flavors:
+  python_function:
+    config:
+      device: null
+    data: data
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pytorch
+    pickle_module_name: mlflow.pytorch.pickle_module
+    python_version: 3.12.4
+  pytorch:
+    code: null
+    model_data: data
+    pytorch_version: 2.12.1+cpu
+mlflow_version: 3.14.0
+model_id: m-f264033997204331bd07aa77b091b889
+model_size_bytes: 2495094
+model_uuid: m-f264033997204331bd07aa77b091b889
+prompts: null
+utc_time_created: '2026-06-30 10:33:14.653654'
