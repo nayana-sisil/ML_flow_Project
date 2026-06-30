@@ -41,7 +41,7 @@ print("Classes:", train_dataset.classes)
 model = CNN().to(device)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+optimizer = optim.SGD(model.parameters(), lr=0.001)
 
 
 # Accuracy function
@@ -63,12 +63,12 @@ def accuracy(loader):
     return correct / total
 
 
-epochs = 1
+epochs = 3
 
 
 with mlflow.start_run():
     mlflow.log_param("model", "CNN")
-    mlflow.log_param("optimizer", "Adam")
+    mlflow.log_param("optimizer", "SGD")
     mlflow.log_param("lr", 0.001)
     mlflow.log_param("batch_size", 32)
     mlflow.log_param("epochs", epochs)
