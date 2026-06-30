@@ -10,3 +10,8 @@ wheels/
 .venv
 data/
 *.tar.gz
+
+mlflow.db
+mlruns/
+*.db
+models/*.pth
