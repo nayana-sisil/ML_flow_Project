@@ -1,10 +1,10 @@
 # MLflow CIFAR-10
 
-End-to-end image classification pipeline using a PyTorch CNN on the CIFAR-10 dataset with MLflow for experiment tracking, visualization, and model management.
+End to end image classification pipeline using a PyTorch CNN on the CIFAR-10 dataset with MLflow for experiment tracking, visualization, and model management.
 
 ## Overview
 
-A Convolutional Neural Network classifier for the CIFAR-10 dataset (10 classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck). The training loop logs hyperparameters, per-epoch metrics, and the trained model artifact to MLflow, enabling run comparison and model versioning. Includes an inference script for testing on new images.
+A Convolutional Neural Network classifier for the CIFAR-10 dataset (10 classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck). The training loop logs hyperparameters, per epoch metrics, and the trained model artifact to MLflow, enabling run comparison and model versioning. Includes an inference script for testing on new images.
 
 ## Dataset
 
@@ -72,7 +72,7 @@ Then open [http://127.0.0.1:5000](http://127.0.0.1:5000) to compare runs, view m
 |-----------|-------|
 | Optimizer | Adam |
 | Learning Rate | 0.0005 |
-| Test Accuracy | ~65-70% (CPU) |
+| Test Accuracy | 0.75044 (CPU) |
 
 ## Inference
 
