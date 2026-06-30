@@ -1,5 +1,5 @@
-from torchvision import datasets
-from torchvision import transforms
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
 
 transform = transforms.Compose(
     [
@@ -7,28 +7,17 @@ transform = transforms.Compose(
     ]
 )
 
-train_dataset = datasets.CIFAR10(
-    root="data",
-    train=True,
-    download=True,
-    transform=transform,
+train_dataset = datasets.ImageFolder(
+    root="C:/Users/Ewis/Downloads/archive (5)/cifar10/train", transform=transform
 )
 
-test_dataset = datasets.CIFAR10(
-    root="data",
-    train=False,
-    download=True,
-    transform=transform,
+test_dataset = datasets.ImageFolder(
+    root="C:/Users/Ewis/Downloads/archive (5)/cifar10/test", transform=transform
 )
 
-print("Training images:", len(train_dataset))
-print("Testing images:", len(test_dataset))
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
-image, label = train_dataset[0]
-
-print(image.shape)
-print(label)
-
-
-# if __name__ == "__main__":
-#     main()
+print("Classes:", train_dataset.classes)
+print("Train batches:", len(train_loader))
+print("Test batches:", len(test_loader))
