@@ -1,5 +1,6 @@
-from torchvision import datasets
-from torchvision import transforms
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+
 
 transform = transforms.Compose(
     [
@@ -7,28 +8,19 @@ transform = transforms.Compose(
     ]
 )
 
+
 train_dataset = datasets.CIFAR10(
-    root="data",
-    train=True,
-    download=True,
-    transform=transform,
+    root="data", train=True, download=False, transform=transform
 )
 
 test_dataset = datasets.CIFAR10(
-    root="data",
-    train=False,
-    download=True,
-    transform=transform,
+    root="data", train=False, download=False, transform=transform
 )
 
-print("Training images:", len(train_dataset))
-print("Testing images:", len(test_dataset))
 
-image, label = train_dataset[0]
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
-print(image.shape)
-print(label)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
-
-# if __name__ == "__main__":
-#     main()
+print("Train batches:", len(train_loader))
+print("Test batches:", len(test_loader))
