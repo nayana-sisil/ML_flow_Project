@@ -63,10 +63,6 @@ print(result)
 
 ![Sample Inference](SccrenShots/Sample_Inference.jpg)
 
-## Evaluation
-
-![Confusion Matrix](confusion_matrix.png)
-
 ## Project Structure
 
 ```
