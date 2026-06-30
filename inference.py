@@ -1,38 +1,57 @@
-import mlflow.pytorch
 import torch
-import torchvision.transforms as transforms
+from torchvision import transforms
 from PIL import Image
 
-from utils import CIFAR10_CLASSES
+from model import CNN
 
 
-class CIFAR10Predictor:
-    def __init__(self, run_id=None, model_uri=None):
-        if model_uri:
-            uri = model_uri
-        elif run_id:
-            uri = f"runs:/{run_id}/model"
-        else:
-            raise ValueError("Provide either run_id or model_uri")
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model = mlflow.pytorch.load_model(uri).to(self.device)
-        self.model.eval()
-        self.transform = transforms.Compose([
-            transforms.Resize((32, 32)),
-            transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
-        ])
+classes = [
+    "airplane",
+    "automobile",
+    "bird",
+    "cat",
+    "deer",
+    "dog",
+    "frog",
+    "horse",
+    "ship",
+    "truck",
+]
 
-    def predict(self, image):
-        if isinstance(image, str):
-            image = Image.open(image).convert("RGB")
-        tensor = self.transform(image).unsqueeze(0).to(self.device)
-        with torch.no_grad():
-            outputs = self.model(tensor)
-            probs = torch.softmax(outputs, dim=1)
-            pred_idx = torch.argmax(probs, dim=1).item()
-        return {
-            "class": CIFAR10_CLASSES[pred_idx],
-            "class_id": pred_idx,
-            "probabilities": probs.squeeze().tolist(),
-        }
+
+device = torch.device("cpu")
+
+
+model = CNN().to(device)
+model.load_state_dict(torch.load("models/cnn.pth", map_location=device))
+model.eval()
+
+
+transform = transforms.Compose(
+    [
+        transforms.Resize((32, 32)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+    ]
+)
+
+
+def predict(image_path):
+    image = Image.open(image_path).convert("RGB")
+    image = transform(image)
+    image = image.unsqueeze(0)  # batch dimension
+
+    with torch.no_grad():
+        output = model(image)
+        _, pred = torch.max(output, 1)
+
+    return classes[pred.item()]
+
+
+if __name__ == "__main__":
+    img_path = "test.jpg"
+
+    result = predict(img_path)
+    print("\n====================")
+    print("Prediction:", result)
+    print("====================\n")
